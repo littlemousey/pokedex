@@ -8,7 +8,7 @@ import { PokemonService } from '../../services/pokemon.service';
 })
 export class PokemonDetailComponent implements OnInit {
 
-  pokemonData: object;
+  pokemonData = {};
 
   constructor(private pokemonService: PokemonService) { }
 
