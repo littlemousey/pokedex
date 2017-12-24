@@ -3,11 +3,13 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
+import { PokemonImageComponent } from './components/pokemon-image/pokemon-image.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PokemonImageComponent
   ],
   imports: [
     BrowserModule
