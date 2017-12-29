@@ -20,7 +20,7 @@ export class PokemonImageComponent implements OnInit {
   getImgPathForPokemon(pokemonName) {
 
     this.pokemonImageService.getImageForPokemon(pokemonName)
-      .then((response) => {
+      .subscribe((response) => {
         console.log(response);
       });
   }
