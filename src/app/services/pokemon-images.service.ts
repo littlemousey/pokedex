@@ -17,7 +17,7 @@ export class PokemonImagesService {
 
   getImageForPokemon(pokemonName) {
 
-    const url = `${this.API_ROOT}?key=${this.API_KEY}&cx=${this.CSE_ID}&q=${pokemonName}`; //eslint-disable-line
+    const url = `${this.API_ROOT}?key=${this.API_KEY}&cx=${this.CSE_ID}&q=${pokemonName}&searchType=image`; //eslint-disable-line
 
     return this.http.get(url);
 

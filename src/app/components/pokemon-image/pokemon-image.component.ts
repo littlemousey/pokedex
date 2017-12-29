@@ -13,16 +13,13 @@ export class PokemonImageComponent implements OnInit {
 
   constructor(private pokemonImageService: PokemonImagesService) { }
 
-  ngOnInit() {
-    this.getImgPathForPokemon('pikachu');
+  async ngOnInit() {
+    this.imgPath = await this.getImgPathForPokemon('pikachu');
   }
 
-  getImgPathForPokemon(pokemonName) {
-
-    this.pokemonImageService.getImageForPokemon(pokemonName)
-      .subscribe((response) => {
-        console.log(response);
-      });
+  async getImgPathForPokemon(pokemonName) {
+    const response = await this.pokemonImageService.getImageForPokemon(pokemonName).toPromise();
+    return response.items[0].link;
   }
 
 }
