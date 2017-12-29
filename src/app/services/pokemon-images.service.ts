@@ -17,8 +17,7 @@ export class PokemonImagesService {
 
   getImageForPokemon(pokemonName) {
 
-    GoogleImageSearch.searchImage(pokemonName)
-      .then(results => console.log(results));
+    return GoogleImageSearch.searchImage(pokemonName);
 
     // return new Promise(resolve => {
     //   this.client.search(pokemonName)
