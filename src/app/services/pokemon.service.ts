@@ -12,4 +12,8 @@ export class PokemonService {
     return this.http.get(this.baseUrl + 'pokemon/' + id);
   }
 
+  retrieveAllPokemonNames() {
+    return this.http.get(this.baseUrl + 'pokemon?limit=151');
+  }
+
 }
