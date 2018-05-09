@@ -8,6 +8,11 @@ body {
 	background-color: black;
 }
 
+.select-pokemon img {
+	vertical-align: middle;
+}
+
+
 .select-pokemon:hover{
 	cursor:pointer;
 }

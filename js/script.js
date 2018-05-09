@@ -25,7 +25,8 @@ function pokemonDataToDOM (pokemonList) {
 	for (let pokemon of pokemonList) {
 		//console.log(pokemon);
 		let div = document.createElement('div');
-		div.innerHTML = `# ${pokemonStartNo} <span class="select-pokemon" onclick="showPokemon('${pokemon.url}')">${prettifyPokemonName(pokemon.name)}</span>`;
+		div.setAttribute('class', 'select-pokemon');
+		div.innerHTML = `# ${pokemonStartNo} <span onclick="showPokemon('${pokemon.url}')">${prettifyPokemonName(pokemon.name)}</span><img src="${pokemonSprites}${pokemonStartNo}.png"/>`;
 		listDom.appendChild(div);
 		pokemonStartNo ++;
 	}
