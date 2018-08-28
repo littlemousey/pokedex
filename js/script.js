@@ -1,14 +1,11 @@
 'use strict';
 
-const api = 'https://pokeapi.co/api/v2/';
+const apiV2 = 'https://pokeapi.co/api/v2/';
 const apiQuery = 'pokemon/?limit=151';
-
-// console.log(`${api}${apiQuery}`);
 
 const pokemonSprites = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/';
 
-//fetch(`pokemonAPI.json`)
-fetch(`${api}${apiQuery}`)
+fetch(`${apiV2}${apiQuery}`)
 	.then(function(response) {
 		return response.json();
 	})
@@ -23,10 +20,9 @@ function pokemonDataToDOM (pokemonList) {
 	let pokemonStartNo = 1;
 
 	for (let pokemon of pokemonList) {
-		//console.log(pokemon);
 		let div = document.createElement('div');
 		div.setAttribute('class', 'select-pokemon');
-		div.innerHTML = `# ${pokemonStartNo} <span onclick="showPokemon('${pokemon.url}')">${prettifyPokemonName(pokemon.name)}</span><img src="${pokemonSprites}${pokemonStartNo}.png"/>`;
+		div.innerHTML = `# ${pokemonStartNo} <span onclick="showPokemon('${pokemon.url}')">${prettifyPokemonName(pokemon.name)}<img src="${pokemonSprites}${pokemonStartNo}.png"/></span>`;
 		listDom.appendChild(div);
 		pokemonStartNo ++;
 	}
@@ -48,12 +44,12 @@ function showPokemon (pokemonUrl) {
 			return response.json();
 		})
 		.then(function(singlePokemon){
-			console.log(singlePokemon);
 			let pokemon = new Pokemon(singlePokemon);
 			const domElement = document.getElementById('pokemon');
 			let pokemonInfo =
 			`<h1>${pokemon.name}</h1>
 			<p>Type: ${pokemon.type} <i class="${pokemon.typeIcon}"></i></p>
+			<div id="description"></div>
 			<img id="pokemonImage" alt="${pokemon.name}"/>
 			<audio id="pokemonCry" src="${pokemon.cry}" autoplay>Your browser does not support the <code>audio</code> element.</audio>
 			`;
@@ -66,10 +62,12 @@ function Pokemon (pokemon) {
 	this.name = prettifyPokemonName(pokemon.name);
 	this.type = pokemon.types[0].type.name;
 	this.typeIcon = determineTypeIcon(this.type);
+	this.description = getPokemonDescription(pokemon.species.url);
 	this.image = retrievePokemonGiphy(this.name);
 	this.cry = playPokemonCry(pokemon.id);
 
-	   //  pokemon.sprite = pokemonData.sprites.front_default;
+	// todo:
+	// pokemon.sprite = pokemonData.sprites.front_default;
     // pokemon.name = pokemonData.name;
     // pokemon.type = collectTypes(pokemonData);
     // pokemon.id = pokemonData.id;
@@ -111,7 +109,7 @@ function determineTypeIcon(type) {
 
 function retrievePokemonGiphy (pokemonName) {
 	const url = 'https://api.giphy.com/v1/gifs/search?';
-	const apiKey = 'api_key=pHeytEtBN04WZZzVbodZiBtWuRodg9tM';
+	const apiKey = 'api_key=NEt04DsuMUrv2zHDgw1jgFAP2qCX7OaN';
 	const query = `&q=${pokemonName}&limit=1&offset=0&rating=G&lang=en`;
 	let image;
 
@@ -125,6 +123,25 @@ function retrievePokemonGiphy (pokemonName) {
 		return image;
 	})
 
+}
+
+function getPokemonDescription (url) {
+	fetch(url)
+	.then(function(response) {
+		return response.json();
+	})
+	.then(function(pokemondata) {
+		return pokemondata.flavor_text_entries.filter(function(entry) {
+		return entry.language.name === 'en';
+	})
+})
+	.then(function(entries){
+		updatePokemonDescription(entries[0].flavor_text);
+	})
+}
+
+function updatePokemonDescription (description) {
+	document.querySelector('#description').innerHTML = description;
 }
 
 function playPokemonCry (id) {
