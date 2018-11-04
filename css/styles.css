@@ -29,3 +29,8 @@ body {
 	margin-left: 500px;
 	position: fixed;
 }
+
+#type {
+	background-color: blue;
+	padding: 3px 5px;
+}

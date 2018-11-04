@@ -1,7 +1,7 @@
 'use strict';
 
 const apiV2 = 'https://pokeapi.co/api/v2/';
-const apiQuery = 'pokemon/?limit=151';
+const apiQuery = 'pokemon/?limit=251';
 
 const pokemonSprites = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/';
 
@@ -10,7 +10,7 @@ fetch(`${apiV2}${apiQuery}`)
 		return response.json();
 	})
 	.then(function(rawData) {
-		let pokemonList = rawData.results;
+		let pokemonList = rawData.results.slice(0, 251);
 		pokemonDataToDOM(pokemonList);
 	});
 
@@ -31,9 +31,10 @@ function pokemonDataToDOM (pokemonList) {
 function prettifyPokemonName(originalName) {
 	let name = originalName.charAt(0).toUpperCase() + originalName.slice(1);
 
-	if(name.includes('Nidoran')){
-		let gender = name.charAt(name.length - 1);
-		name = name.slice(0, -2) + ` (${gender})`;
+	if(name.includes('Nidoran-f')){
+		name = name.slice(0, -2) + '♀️';
+	} else if (name.includes('Nidoran-m')){
+		name = name.slice(0, -2) + '♂️';
 	}
 	return name;
 }
@@ -48,7 +49,7 @@ function showPokemon (pokemonUrl) {
 			const domElement = document.getElementById('pokemon');
 			let pokemonInfo =
 			`<h1>${pokemon.name}</h1>
-			<p>Type: ${pokemon.type} <i class="${pokemon.typeIcon}"></i></p>
+			<span id="type">Type: ${pokemon.type} <i class="${pokemon.typeIcon}"></i></span>
 			<div id="description"></div>
 			<img id="pokemonImage" alt="${pokemon.name}"/>
 			<audio id="pokemonCry" src="${pokemon.cry}" autoplay>Your browser does not support the <code>audio</code> element.</audio>
