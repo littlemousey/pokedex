@@ -3,9 +3,17 @@ html {
 	font-size: 20px;
 }
 
-body {
+/*body {
 	color: white;
 	background-color: black;
+}*/
+
+.text-white {
+	color: white;
+}
+
+.right-align {
+	text-align: right;
 }
 
 .select-pokemon img {
@@ -28,4 +36,9 @@ body {
 #pokemon {
 	margin-left: 500px;
 	position: fixed;
+}
+
+#type {
+	background-color: blue;
+	padding: 3px 5px;
 }
