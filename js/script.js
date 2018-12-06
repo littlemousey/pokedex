@@ -12,6 +12,7 @@ fetch(`${apiV2}${apiQuery}`)
 	.then(function(rawData) {
 		let pokemonList = rawData.results.slice(0, 251);
 		pokemonDataToDOM(pokemonList);
+		pokemonSelect(pokemonList);
 	});
 
 
@@ -22,7 +23,7 @@ function pokemonDataToDOM (pokemonList) {
 	for (let pokemon of pokemonList) {
 		let div = document.createElement('div');
 		div.setAttribute('class', 'select-pokemon');
-		div.innerHTML = `# ${pokemonStartNo} <span onclick="showPokemon('${pokemon.url}')">${prettifyPokemonName(pokemon.name)}<img src="${pokemonSprites}${pokemonStartNo}.png"/></span>`;
+		div.innerHTML = `${pokemonStartNo} <span onclick="showPokemon('${pokemon.url}')">${prettifyPokemonName(pokemon.name)}<img src="${pokemonSprites}${pokemonStartNo}.png"/></span>`;
 		listDom.appendChild(div);
 		pokemonStartNo ++;
 	}
@@ -48,20 +49,67 @@ function showPokemon (pokemonUrl) {
 			let pokemon = new Pokemon(singlePokemon);
 			const domElement = document.getElementById('pokemon');
 			let pokemonInfo =
-			`<h1>${pokemon.name}</h1>
-			<span id="type">Type: ${pokemon.type} <i class="${pokemon.typeIcon}"></i></span>
+			`<div class="container is-dark with-title">
+			<p class="title">${pokemon.name}</p>
+			<div class="text-white">
+			<span class="btn is-warning right-align">${pokemon.type}</span>
 			<div id="description"></div>
 			<img id="pokemonImage" alt="${pokemon.name}"/>
 			<audio id="pokemonCry" src="${pokemon.cry}" autoplay>Your browser does not support the <code>audio</code> element.</audio>
+			</div>
+			</div>
 			`;
 			domElement.innerHTML= pokemonInfo;
 		})
 
 }
 
+function pokemonSelect (pokemon) {
+	let pokemonList = [];
+	pokemon.forEach(entry => pokemonList.push(entry.name));
+	var input = document.getElementById('pokemon-search');
+
+	pokemonSearch(pokemon);
+};
+
+function pokemonSearch (pokemonList) {
+	var searchPokemon = document.getElementById('pokemon-search').addEventListener('keyup', function(){
+		var inputSearch = document.getElementById('pokemon-search').value;
+		var filterPokemon = [];
+		const listDom = document.getElementById('pokemonlist');
+		listDom.innerHTML = '';
+
+		var filterPokemon = buildPokemonList(inputSearch, pokemonList);
+
+		for (let pokemon of filterPokemon) {
+			let div = document.createElement('div');
+			div.setAttribute('class', 'select-pokemon');
+			div.innerHTML = `${pokemon.id} <span onclick="showPokemon('${pokemon.url}')">${prettifyPokemonName(pokemon.name)}<img src="${pokemonSprites}${pokemon.id}.png"/></span>`;
+			listDom.appendChild(div);
+		}
+	})
+}
+
+function buildPokemonList (inputSearch, pokemonList){
+	var filterPokemon = []
+	for(var pokemon of pokemonList){
+		if(pokemon.name.includes(inputSearch)){
+			var newPokemon = {
+				id: pokemon.url.split('/')[6],
+				name: pokemon.name,
+				url: pokemon.url
+			}				
+			filterPokemon.push(newPokemon);
+		}
+	}
+
+	return filterPokemon;
+}
+
+
 function Pokemon (pokemon) {
 	this.name = prettifyPokemonName(pokemon.name);
-	this.type = pokemon.types[0].type.name;
+	this.type = createTypeList(pokemon.types);
 	this.typeIcon = determineTypeIcon(this.type);
 	this.description = getPokemonDescription(pokemon.species.url);
 	this.image = retrievePokemonGiphy(this.name);
@@ -148,4 +196,10 @@ function updatePokemonDescription (description) {
 function playPokemonCry (id) {
 	const pokemonId = id;
 	return `https://pokemoncries.com/cries-old/${pokemonId}.mp3`;
+}
+
+function createTypeList(types) {
+	let list = [];
+	types.forEach(entry => list.push(entry.type.name));
+	return list;
 }
