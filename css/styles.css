@@ -1,0 +1,31 @@
+html {
+	font-family: 'Roboto', sans-serif;
+	font-size: 20px;
+}
+
+body {
+	color: white;
+	background-color: black;
+}
+
+.select-pokemon img {
+	vertical-align: middle;
+}
+
+
+.select-pokemon:hover{
+	cursor:pointer;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  grid-gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
+  height:100%;
+}
+
+#pokemon {
+	margin-left: 500px;
+	position: fixed;
+}
