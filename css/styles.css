@@ -42,3 +42,9 @@ html {
 	background-color: blue;
 	padding: 3px 5px;
 }
+
+#pokemon-logo {
+	object-fit: none;
+	width: 400px;
+	height: 200px;
+}

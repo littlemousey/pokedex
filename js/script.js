@@ -74,7 +74,7 @@ function pokemonSelect (pokemon) {
 
 function pokemonSearch (pokemonList) {
 	var searchPokemon = document.getElementById('pokemon-search').addEventListener('keyup', function(){
-		var inputSearch = document.getElementById('pokemon-search').value;
+		var inputSearch = document.getElementById('pokemon-search').value.toLowerCase();
 		var filterPokemon = [];
 		const listDom = document.getElementById('pokemonlist');
 		listDom.innerHTML = '';
