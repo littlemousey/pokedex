@@ -1,23 +1,37 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<title>Pokédex</title>
-	<link rel="stylesheet" type="text/css" href="css/styles.css">
-	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
-	<link rel="stylesheet" type="text/css" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-	<link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet" />
-	<script type="text/javascript" src="js/script.js"></script>
-	<link rel="icon" href="assets/pokeball.ico" type="image/x-icon"/>
-</head>
-<body>
-	<img src="assets/logo.svg" alt="Pokémon">
-	<div class="wrapper">
-		<div id="searchbar-left">
-			<input placeholder="Search for Pokémon" id="pokemon-search" />
-			<div id="pokemonlist"></div>
-		</div>
-		<div id="pokemon"></div>
-	</div>
-</body>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Pokédex</title>
+    <link
+      href="https://unpkg.com/nes.css@latest/css/nes.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Press+Start+2P"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" type="text/css" href="css/styles.css" />
+    <script type="text/javascript" src="js/script.js"></script>
+    <link rel="icon" href="assets/pokeball.ico" type="image/x-icon" />
+  </head>
+  <body>
+    <img src="assets/logo.svg" alt="Pokémon" />
+    <div class="wrapper">
+      <div id="searchbar-left">
+        <input
+          type="text"
+          placeholder="Search for Pokémon"
+          id="pokemon-search"
+          class="nes-input"
+        />
+        <div id="pokemonlist"></div>
+      </div>
+      <div id="pokemon"></div>
+    </div>
+  </body>
 </html>

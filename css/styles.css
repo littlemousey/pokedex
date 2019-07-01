@@ -1,28 +1,27 @@
 html {
-	font-family: 'Roboto', sans-serif;
-	font-size: 20px;
+  font-family: "Press Start 2P", cursive;
+  font-size: 20px;
 }
 
-/*body {
-	color: white;
-	background-color: black;
-}*/
+body {
+  color: white;
+  background-color: black;
+}
 
 .text-white {
-	color: white;
+  color: white;
 }
 
 .right-align {
-	text-align: right;
+  text-align: right;
 }
 
 .select-pokemon img {
-	vertical-align: middle;
+  vertical-align: middle;
 }
 
-
-.select-pokemon:hover{
-	cursor:pointer;
+.select-pokemon:hover {
+  cursor: pointer;
 }
 
 .wrapper {
@@ -30,15 +29,15 @@ html {
   grid-template-columns: 350px 1fr;
   grid-gap: 10px;
   grid-auto-rows: minmax(100px, auto);
-  height:100%;
+  height: 100%;
 }
 
 #pokemon {
-	margin-left: 500px;
-	position: fixed;
+  margin-left: 500px;
+  position: fixed;
 }
 
 #type {
-	background-color: blue;
-	padding: 3px 5px;
+  background-color: blue;
+  padding: 3px 5px;
 }
