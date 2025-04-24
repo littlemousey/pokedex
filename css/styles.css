@@ -29,7 +29,12 @@ body {
   grid-template-columns: 350px 1fr;
   grid-gap: 10px;
   grid-auto-rows: minmax(100px, auto);
-  height: 100%;
+  height: calc(100vh - 100px);
+  overflow-y: hidden;
+}
+
+#searchbar-left {
+  overflow-y: auto;
 }
 
 #pokemon {
@@ -37,7 +42,11 @@ body {
   position: fixed;
 }
 
-#type {
+/* #type {
   background-color: blue;
   padding: 3px 5px;
+} */
+
+.single-pokedex {
+  background-color: #cc0000;
 }

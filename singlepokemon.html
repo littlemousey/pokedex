@@ -4,13 +4,12 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 		<link rel="stylesheet" type="text/css" href="css/styles.css">
+		<link rel="stylesheet" type="text/css" href="css/halftone.css">
 		<script src="js/singlepokemon.js"></script>
 		<title>Pokémon API</title>
 	</head>
-	<body>
-		<h1>Pokédex</h1>
+	<body class="single-pokedex">
 		<div>
-			<img src="http://www.stickaz.com/1616-2351-large/classic-pokeball.png" height="30px" weight="30px" alt="pokemon image" id="img"/>
 			<p><strong>Name: </strong><span id="name"></span></p>
 			<p><strong>Type: </strong><span id="type"></span></p>
 			<p><strong>ID: </strong><span id="id"></span></p>
@@ -22,7 +21,9 @@
 			<p><strong>Special-attack: </strong><span id="spatt"></span></p>
 			<div><strong>Moves: </strong><ul id="moves"></ul></div>
 		</div>
-<!-- 		<img src="https://ksassets.timeincuk.net/wp/uploads/sites/55/2016/07/2437349-pikachu-1.png" alt="pikachu" width="300px" height="300px"/> -->
 
+	<div class="halftone">
+		<img id="img-pokemon" src=""alt=""/>
+	</div>
 	</body>
 </html>

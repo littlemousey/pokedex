@@ -1,0 +1,49 @@
+/* https://css-irl.info/css-halftone-patterns */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 1rem;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, min(400px, 100%));
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.halftone {
+  --mask: linear-gradient(rgb(0 0 0), rgb(0 0 0 / 0.5));
+  --stop1: 3%;
+  --stop2: 90%;
+  
+  aspect-ratio: 1;
+  position: relative;
+  background: rgb(232, 90, 90);
+  filter: contrast(50);
+}
+
+.halftone::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at center, black var(--stop1), transparent var(--stop2));
+  background-size: 1rem 1rem;
+  background-repeat: round;
+  background-position: center;
+  border: 4px solid;
+  mask-image: var(--mask);
+}
+
+.halftone:nth-child(even)::after {
+  --bgSize: 1.4rem;
+  --bgPosition: calc(var(--bgSize) / 2);
+  --stop1: 3%;
+  --stop2: 65%;
+  
+  background-image: radial-gradient(circle at center, black var(--stop1), transparent var(--stop2)), radial-gradient(circle at center, black var(--stop1), transparent var(--stop2));
+  background-size: var(--bgSize) var(--bgSize);
+  background-position: 0 0, var(--bgPosition) var(--bgPosition);
+}

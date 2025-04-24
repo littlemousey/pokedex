@@ -1,35 +1,57 @@
-var xhr = new XMLHttpRequest();
-xhr.open("GET", 'https://pokeapi.co/api/v2/pokemon/25', true); // pikachu id = 25
-
-const promise = new Promise( (resolve, reject) => {
-  xhr.onload = function (e) {
-  if (xhr.readyState === 4) {
-    if (xhr.status === 200) {
-      var json = JSON.parse(xhr.response);
-      resolve(json);
-    } else {
-      reject(xhr.statusText);
+async function getData() {
+  const url = 'https://pokeapi.co/api/v2/pokemon/pikachu';
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
     }
+
+    const json = await response.json();
+    console.log(json);
+
+    const newPokemon = createPokemon(json);
+    console.log(newPokemon);
+    showPokemonData(newPokemon);
+  } catch (error) {
+    console.error(error.message);
   }
-};
+}
 
-})
-
-promise.then(function (json) { 
-  var pokemon = createPokemon(json);
-  showPokemonData(pokemon);
-  return Promise.reject();
-}).then((pokemon) => {
-  pokemon
-}).catch(function (message) {
-  console.error('Error: ', xhr.statusText);
-})
+getData();
 
 
-xhr.send(null);
+// var xhr = new XMLHttpRequest();
+// xhr.open("GET", 'https://pokeapi.co/api/v2/pokemon/25', true); // pikachu id = 25
+
+// const promise = new Promise( (resolve, reject) => {
+//   xhr.onload = function (e) {
+//   if (xhr.readyState === 4) {
+//     if (xhr.status === 200) {
+//       var json = JSON.parse(xhr.response);
+//       resolve(json);
+//     } else {
+//       reject(xhr.statusText);
+//     }
+//   }
+// };
+
+// })
+
+// promise.then(function (json) { 
+//   var pokemon = createPokemon(json);
+//   showPokemonData(pokemon);
+//   return Promise.reject();
+// }).then((pokemon) => {
+//   pokemon
+// }).catch(function (message) {
+//   console.error('Error: ', xhr.statusText);
+// })
+
+
+// xhr.send(null);
 
 function createPokemon (pokemonData) {
-    var pokemon = new Object();
+    const pokemon = new Object();
     pokemon.sprite = pokemonData.sprites.front_default;
     pokemon.name = pokemonData.name;
     pokemon.type = collectTypes(pokemonData);
@@ -41,9 +63,10 @@ function createPokemon (pokemonData) {
     pokemon.speed = pokemon.stats.speed;
     pokemon.spDef = pokemon.stats.spDef;
     pokemon.spAtt = pokemon.stats.spAtt;
+    pokemon.image = pokemonData.sprites.other["official-artwork"]["front_default"];
 
-    //hier verder
-    pokemon.moves = collectMoves(pokemonData);
+    // //hier verder
+    // pokemon.moves = collectMoves(pokemonData);
 
     return pokemon;
 }
@@ -56,16 +79,16 @@ function collectTypes (pokemonData){
 	return list;
 }
 
-function collectMoves (pokemonData) {
-  const list = [];
-  for (const counter of pokemonData.moves){
-    if (isFirstGeneration(counter)) {
-	      list.push(counter.move.name);
-	    }
-	}
+// function collectMoves (pokemonData) {
+//   const list = [];
+//   for (const counter of pokemonData.moves){
+//     if (isFirstGeneration(counter)) {
+// 	      list.push(counter.move.name);
+// 	    }
+// 	}
 
-	return list;
-}
+// 	return list;
+// }
 
 function collectStats (pokemonData) {
 	// return an array of stats with value
@@ -85,20 +108,20 @@ function collectStats (pokemonData) {
 	return result;
 }
 
-function isFirstGeneration(counter) {
-  const acceptedGroups = ['red-blue', 'yellow'];
-  for (const version of counter.version_group_details){
-    if (acceptedGroups.includes(version.version_group.name)){
-      return true;
-    }
-  }
+// function isFirstGeneration(counter) {
+//   const acceptedGroups = ['red-blue', 'yellow'];
+//   for (const version of counter.version_group_details){
+//     if (acceptedGroups.includes(version.version_group.name)){
+//       return true;
+//     }
+//   }
 
-  return false;
-}
+//   return false;
+// }
 
 
 function showPokemonData (pokemon) {
-  document.getElementById('img').setAttribute('src', pokemon.sprite);
+  document.getElementById('img-pokemon').setAttribute('src', pokemon.image);
 	document.getElementById('name').innerHTML = pokemon.name;
 	document.getElementById('type').innerHTML = pokemon.type;
 	document.getElementById('id').innerHTML = pokemon.id;
